@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Service Requests List</h1>
+    <ul class="list-group">
+        {% for service in services %}
+            <li class="list-group-item"><a href="{% url 'services:service_detail' service.pk %}">{{ service }}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'core:dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+</div>
+{% endblock %}

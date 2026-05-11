@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>{{ resident }}</h1>
+    <div class="card">
+        <div class="card-body">
+            <p><strong>First Name:</strong> {{ resident.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ resident.last_name }}</p>
+            <p><strong>Middle Name:</strong> {{ resident.middle_name }}</p>
+            <p><strong>Birth Date:</strong> {{ resident.birth_date }}</p>
+            <p><strong>Gender:</strong> {{ resident.gender }}</p>
+            <p><strong>Contact Number:</strong> {{ resident.contact_number }}</p>
+            <p><strong>Purok:</strong> {{ resident.purok }}</p>
+            <p><strong>Address:</strong> {{ resident.address }}</p>
+            <p><strong>Civil Status:</strong> {{ resident.civil_status }}</p>
+        </div>
+    </div>
+    <a href="{% url 'residents:resident_list' %}" class="btn btn-secondary mt-3">Back to Residents</a>
+</div>
+{% endblock %}

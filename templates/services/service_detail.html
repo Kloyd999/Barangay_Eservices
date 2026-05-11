@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Service Request Detail</h1>
+    <div class="card">
+        <div class="card-body">
+            <p><strong>Resident:</strong> {{ service.resident }}</p>
+            <p><strong>Service Type:</strong> {{ service.service_type }}</p>
+            <p><strong>Purpose:</strong> {{ service.purpose }}</p>
+            <p><strong>Status:</strong> {{ service.status }}</p>
+            <p><strong>Remarks:</strong> {{ service.remarks }}</p>
+            <p><strong>Requested At:</strong> {{ service.requested_at }}</p>
+            <p><strong>Processed At:</strong> {{ service.processed_at }}</p>
+        </div>
+    </div>
+    <a href="{% url 'services:service_list' %}" class="btn btn-secondary mt-3">Back to Services</a>
+</div>
+{% endblock %}

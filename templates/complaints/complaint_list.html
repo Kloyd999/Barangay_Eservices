@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Complaints List</h1>
+    <ul class="list-group">
+        {% for complaint in complaints %}
+            <li class="list-group-item"><a href="{% url 'complaints:complaint_detail' complaint.pk %}">{{ complaint.respondent_name }} - {{ complaint.status }}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'core:dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+</div>
+{% endblock %}

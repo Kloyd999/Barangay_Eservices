@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Complaint Detail</h1>
+    <div class="card">
+        <div class="card-body">
+            <p><strong>Complainant:</strong> {{ complaint.complainant }}</p>
+            <p><strong>Respondent:</strong> {{ complaint.respondent_name }}</p>
+            <p><strong>Details:</strong> {{ complaint.complaint_details }}</p>
+            <p><strong>Status:</strong> {{ complaint.status }}</p>
+            <p><strong>Created At:</strong> {{ complaint.created_at }}</p>
+        </div>
+    </div>
+    <a href="{% url 'complaints:complaint_list' %}" class="btn btn-secondary mt-3">Back to Complaints</a>
+</div>
+{% endblock %}

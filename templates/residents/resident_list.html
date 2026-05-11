@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Residents List</h1>
+    <ul class="list-group">
+        {% for resident in residents %}
+            <li class="list-group-item"><a href="{% url 'residents:resident_detail' resident.pk %}">{{ resident }}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'core:dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+</div>
+{% endblock %}
