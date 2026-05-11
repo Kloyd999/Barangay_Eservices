@@ -1,21 +1,84 @@
 {% extends 'base/base.html' %}
+{% block title %}{{ resident }} - Barangay E-Services{% endblock %}
+{% block nav_residents %}active{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1>{{ resident }}</h1>
-    <div class="card">
-        <div class="card-body">
-            <p><strong>First Name:</strong> {{ resident.first_name }}</p>
-            <p><strong>Last Name:</strong> {{ resident.last_name }}</p>
-            <p><strong>Middle Name:</strong> {{ resident.middle_name }}</p>
-            <p><strong>Birth Date:</strong> {{ resident.birth_date }}</p>
-            <p><strong>Gender:</strong> {{ resident.gender }}</p>
-            <p><strong>Contact Number:</strong> {{ resident.contact_number }}</p>
-            <p><strong>Purok:</strong> {{ resident.purok }}</p>
-            <p><strong>Address:</strong> {{ resident.address }}</p>
-            <p><strong>Civil Status:</strong> {{ resident.civil_status }}</p>
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb small">
+        <li class="breadcrumb-item"><a href="{% url 'core:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'residents:resident_list' %}">Residents</a></li>
+        <li class="breadcrumb-item active">{{ resident }}</li>
+    </ol>
+</nav>
+
+<div class="row g-3">
+    <!-- Profile sidebar -->
+    <div class="col-md-3">
+        <div class="card text-center p-4">
+            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fw-bold mx-auto mb-3"
+                 style="width:72px;height:72px;font-size:1.8rem;">
+                {{ resident.first_name|first|upper }}
+            </div>
+            <h5 class="fw-bold mb-1">{{ resident }}</h5>
+            <p class="text-muted small mb-2">{{ resident.purok }}</p>
+            <span class="badge bg-success-subtle text-success border border-success-subtle">Active Resident</span>
         </div>
     </div>
-    <a href="{% url 'residents:resident_list' %}" class="btn btn-secondary mt-3">Back to Residents</a>
+
+    <!-- Details -->
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header d-flex align-items-center gap-2">
+                <i class="bi bi-person-lines-fill text-primary"></i>
+                Personal Information
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-sm-4">
+                        <p class="text-muted small mb-1 text-uppercase fw-semibold" style="font-size:.7rem;letter-spacing:.5px;">First Name</p>
+                        <p class="fw-medium mb-0">{{ resident.first_name }}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="text-muted small mb-1 text-uppercase fw-semibold" style="font-size:.7rem;letter-spacing:.5px;">Middle Name</p>
+                        <p class="fw-medium mb-0">{{ resident.middle_name|default:"—" }}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="text-muted small mb-1 text-uppercase fw-semibold" style="font-size:.7rem;letter-spacing:.5px;">Last Name</p>
+                        <p class="fw-medium mb-0">{{ resident.last_name }}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="text-muted small mb-1 text-uppercase fw-semibold" style="font-size:.7rem;letter-spacing:.5px;">Birth Date</p>
+                        <p class="fw-medium mb-0">{{ resident.birth_date }}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="text-muted small mb-1 text-uppercase fw-semibold" style="font-size:.7rem;letter-spacing:.5px;">Gender</p>
+                        <p class="fw-medium mb-0">{{ resident.gender }}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="text-muted small mb-1 text-uppercase fw-semibold" style="font-size:.7rem;letter-spacing:.5px;">Civil Status</p>
+                        <p class="fw-medium mb-0">{{ resident.civil_status }}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="text-muted small mb-1 text-uppercase fw-semibold" style="font-size:.7rem;letter-spacing:.5px;">Contact Number</p>
+                        <p class="fw-medium mb-0">{{ resident.contact_number }}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="text-muted small mb-1 text-uppercase fw-semibold" style="font-size:.7rem;letter-spacing:.5px;">Purok</p>
+                        <p class="fw-medium mb-0">{{ resident.purok }}</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-muted small mb-1 text-uppercase fw-semibold" style="font-size:.7rem;letter-spacing:.5px;">Full Address</p>
+                        <p class="fw-medium mb-0">{{ resident.address }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a href="{% url 'residents:resident_list' %}" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-arrow-left me-1"></i>Back to Residents
+    </a>
 </div>
 {% endblock %}

@@ -1,13 +1,89 @@
 {% extends 'base/base.html' %}
+{% block title %}Residents - Barangay E-Services{% endblock %}
+{% block nav_residents %}active{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1>Residents List</h1>
-    <ul class="list-group">
-        {% for resident in residents %}
-            <li class="list-group-item"><a href="{% url 'residents:resident_detail' resident.pk %}">{{ resident }}</a></li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'core:dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-1 small">
+                <li class="breadcrumb-item"><a href="{% url 'core:dashboard' %}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Residents</li>
+            </ol>
+        </nav>
+        <h4 class="fw-bold mb-0">Residents</h4>
+        <p class="text-muted small mb-0">All registered barangay residents</p>
+    </div>
 </div>
+
+<!-- Search -->
+<div class="mb-3">
+    <div class="input-group" style="max-width:320px;">
+        <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+        <input type="text" class="form-control border-start-0" id="searchInput" placeholder="Search residents…">
+    </div>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0" id="residentsTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Purok</th>
+                    <th>Gender</th>
+                    <th>Civil Status</th>
+                    <th>Contact</th>
+                    <th class="text-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for resident in residents %}
+                <tr>
+                    <td class="text-muted small">{{ forloop.counter }}</td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fw-bold"
+                                 style="width:34px;height:34px;font-size:.8rem;flex-shrink:0;">
+                                {{ resident.first_name|first|upper }}
+                            </div>
+                            <span class="fw-medium">{{ resident }}</span>
+                        </div>
+                    </td>
+                    <td>{{ resident.purok }}</td>
+                    <td>{{ resident.gender }}</td>
+                    <td>{{ resident.civil_status }}</td>
+                    <td class="text-muted small">{{ resident.contact_number }}</td>
+                    <td class="text-end">
+                        <a href="{% url 'residents:resident_detail' resident.pk %}"
+                           class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-eye me-1"></i>View
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center py-5 text-muted">
+                        <i class="bi bi-people fs-1 d-block mb-2 opacity-25"></i>
+                        No residents found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    const inp = document.getElementById('searchInput');
+    inp && inp.addEventListener('keyup', function() {
+        const q = this.value.toLowerCase();
+        document.querySelectorAll('#residentsTable tbody tr').forEach(r => {
+            r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+    });
+</script>
 {% endblock %}

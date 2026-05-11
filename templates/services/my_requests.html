@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+
+{% block title %}My Service Requests - Barangay E-Services{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>My Service Requests</h2>
+    {% if requests %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Service Type</th>
+                        <th>Purpose</th>
+                        <th>Status</th>
+                        <th>Requested On</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in requests %}
+                        <tr>
+                            <td>{{ request.get_service_type_display }}</td>
+                            <td>{{ request.purpose|truncatechars:50 }}</td>
+                            <td>
+                                <span class="badge 
+                                    {% if request.status == 'pending' %}bg-warning
+                                    {% elif request.status == 'approved' %}bg-info
+                                    {% elif request.status == 'completed' %}bg-success
+                                    {% else %}bg-danger{% endif %}">
+                                    {{ request.get_status_display }}
+                                </span>
+                            </td>
+                            <td>{{ request.requested_at|date:"M d, Y" }}</td>
+                            <td><a href="{% url 'services:service_detail' request.pk %}" class="btn btn-sm btn-outline-primary">View</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>You have not requested any services yet.</p>
+    {% endif %}
+    <a href="{% url 'core:dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}

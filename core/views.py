@@ -5,8 +5,10 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def dashboard(request):
     username = request.user.username
+    role = request.user.role
 
     context = {
         'username': username,
+        'role': role,
     }
     return render(request, 'dashboard.html', context)
